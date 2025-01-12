@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+      }
+      h1 {
+        color: #333;
+        font-size: 3rem;
+        cursor: pointer;
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+      h1:hover {
+        color: #007acc;
+        transform: scale(1.1);
+      }
+      .data-container {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e0f7fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        font-size: 1.2rem;
+      }
+      .data-container a {
+        color: #007acc;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .data-container a:hover {
+        text-decoration: underline;
+      }
+      footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 onclick="fetchData()">Hello World!</h1>
+    <div class="data-container" id="dataContainer"></div>
+    <footer>&copy; 2025 Rizky Rifaldi Wahab</footer>
+
+    <script>
+      async function fetchData() {
+        const response = await fetch("/get_data");
+        const data = await response.json();
+        const container = document.getElementById("dataContainer");
+        container.innerHTML = `
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>URL:</strong> <a href="${data.url}" target="_blank">${data.url}</a></p>`;
+        container.style.display = "block";
+      }
+    </script>
+  </body>
+</html>
